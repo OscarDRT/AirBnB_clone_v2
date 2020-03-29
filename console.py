@@ -43,8 +43,19 @@ class HBNBCommand(cmd.Cmd):
                 raise SyntaxError()
             my_list = line.split(" ")
             obj = eval("{}()".format(my_list[0]))
+            parameter = my_list[1:]
+            for value in parameter:
+                first_value = value.split("=")
+                second_value = first_value[1].replace("_", " ")
+                second_value = second_value.replace('"', "")
+                try:
+                    second_value = eval(second_value)
+                except Exception:
+                    second_value = second_value
+                setattr(obj, first_value[0], second_value)
             obj.save()
             print("{}".format(obj.id))
+
         except SyntaxError:
             print("** class name missing **")
         except NameError:
@@ -136,7 +147,7 @@ class HBNBCommand(cmd.Cmd):
             print(my_list)
         except NameError:
             print("** class doesn't exist **")
-
+    
     def do_update(self, line):
         """Updates an instanceby adding or updating attribute
         Exceptions:
@@ -251,3 +262,4 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
+
