@@ -2,23 +2,26 @@
 """This is the base model class for AirBnB"""
 import uuid
 import models
+from os import getenv
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, String, Integer, DateTime
 
-Base = declarative_base() 
+Base = declarative_base()
+
 
 class BaseModel:
     """This class will defines all common attributes/methods
     for other classes
     """
-
-    id = Column(String(60), primary_key=True, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
+    if getenv("HBNB_TYPE_STORAGE") == 'db':
+        __tablename__ = ""
+        id = Column(String(60), nullable=False, primary_key=True)
+        created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+        updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
     def __init__(self, *args, **kwargs):
-        """Instantiation of base model 
+        """Instantiation of base model class
         Args:
             args: it won't be used
             kwargs: arguments for the constructor of the BaseModel
@@ -66,14 +69,12 @@ class BaseModel:
         my_dict["__class__"] = str(type(self).__name__)
         my_dict["created_at"] = self.created_at.isoformat()
         my_dict["updated_at"] = self.updated_at.isoformat()
-        return my_dict
-
-        value = my_dict.keys()
-        if  '_sa_instance_state' in value:
+        if '_sa_instance_state' in my_dict:
             del my_dict['_sa_instance_state']
         return my_dict
 
     def delete(self):
-        """delete the current instance from the storage
+        """delete the current instance from
+        the storage
         """
-        models.storage.delete()
+        models.storage.delete(self)
