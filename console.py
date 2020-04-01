@@ -13,7 +13,6 @@ from models.review import Review
 from shlex import split
 
 
-
 class HBNBCommand(cmd.Cmd):
     """this class is entry point of the command interpreter
     """
@@ -148,7 +147,7 @@ class HBNBCommand(cmd.Cmd):
             print(my_list)
         except NameError:
             print("** class doesn't exist **")
-    
+
     def do_update(self, line):
         """Updates an instanceby adding or updating attribute
         Exceptions:
@@ -263,4 +262,3 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-

@@ -68,7 +68,8 @@ class Place(BaseModel, Base):
             place = models.storage.all()
             for key in place:
                 relation = []
-                if key.place_id == self.id and key.__class__.__name__ == "Amenity":
+                if key.place_id == self.id and \
+                   key.__class__.__name__ == "Amenity":
                     relation.append(key)
             return relation
 
