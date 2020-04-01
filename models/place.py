@@ -1,12 +1,19 @@
 #!/usr/bin/python3
 """This is the place class"""
 from models.base_model import BaseModel, Base
-from sqlalchemy.orm import relationship
 from os import getenv
-from sqlalchemy import Table, Column, Integer
-from sqlalchemy import String, Float, DateTime, ForeignKey
-import models
-from models.review import Review
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String, Float, Integer
+from sqlalchemy.orm import relationship
+from sqlalchemy import ForeignKey, Table
+
+
+place_amenity = Table('place_amenity', Base.metadata,
+                      Column('place_id', String(60), ForeignKey('places.id'),
+                             primary_key=True, nullable=False),
+                      Column('amenity_id', String(60),
+                             ForeignKey('amenities.id'),
+                             primary_key=True, nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -40,6 +47,9 @@ class Place(BaseModel, Base):
         amenity_ids = []
         reviews = relationship("Review", backref="place",
                                cascade="all, delete")
+        """amenities = relationship("Amenity",
+                                 secondary=place_amenity,
+                                 backref="places", viewonly=False)"""
 
     else:
         @property
@@ -50,3 +60,22 @@ class Place(BaseModel, Base):
                 if key.place.id == self.id:
                     relation.append(key)
             return relation
+
+        @property
+        def amenities(self):
+            """amenities in the database
+            """
+            return self.amenity_ids
+
+        @amenities.setter
+        def amenities(self, obj):
+            """handles append method for adding an Amenity.id
+            to the attribute amenity_ids
+            """
+            if type(obj) == Amenity:
+                self.append(obj)
+
+        def append(self, obj):
+            """method that appends
+            """
+            self.amenity_ids.append(obj)
