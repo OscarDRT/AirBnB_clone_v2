@@ -13,11 +13,11 @@ from sqlalchemy import create_engine, MetaData
 from models.base_model import Base
 from os import getenv
 
+
 class DBStorage:
 
     __engine = None
     __session = None
-
 
     def __init__(self):
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
@@ -32,7 +32,8 @@ class DBStorage:
 
     def all(self, cls=None):
         new_dict = {}
-        classes = {"City": City, "Place": Place, "Review": Review, "Amenity": Amenity, "State": State, "User": User}
+        classes = {"City": City, "Place": Place, "Review": Review,
+                   "Amenity": Amenity, "State": State, "User": User}
         if cls is not None:
             see = self.__session.query(classes[cls])
             for instance in see:
@@ -60,5 +61,6 @@ class DBStorage:
 
     def reload(self):
         Base.metadata.create_all(bind=self.__engine)
-        Session = scoped_session(sessionmaker(bind=self.__engine, expire_on_commit=False))
+        Session = scoped_session(sessionmaker(bind=self.__engine,
+                                 expire_on_commit=False))
         self.__session = Session()
