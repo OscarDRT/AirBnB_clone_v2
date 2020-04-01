@@ -9,7 +9,6 @@ from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 
-
 class State(BaseModel, Base):
     """This is the class for State
     Attributes:
