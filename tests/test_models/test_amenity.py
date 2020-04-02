@@ -3,7 +3,12 @@
 import unittest
 import os
 from models.amenity import Amenity
+from models.state import State
+from models.city import City
+from models.user import User
+from models.place import Place
 from models.base_model import BaseModel
+import models
 import pep8
 
 
@@ -61,6 +66,18 @@ class TestAmenity(unittest.TestCase):
     def test_to_dict_Amenity(self):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.amenity), True)
+
+    @unittest.skipIf(
+        os.getenv('HBNB_TYPE_STORAGE') == 'db',
+        "This test only work in Filestorage")
+    def test_save_Amenity(self):
+        """test if the save works"""
+        self.amenity.save()
+        self.assertNotEqual(self.amenity.created_at, self.amenity.updated_at)
+    def test_to_dict_Amenity(self):
+        """test if dictionary works"""
+        self.assertEqual('to_dict' in dir(self.amenity), True)
+
 
 
 if __name__ == "__main__":
