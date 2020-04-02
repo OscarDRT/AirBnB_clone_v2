@@ -62,6 +62,17 @@ class TestState(unittest.TestCase):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.state), True)
 
+    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
+                     'Not supported in Data Base mode')
+    def test_save_State(self):
+        """test if the save works"""
+        self.state.save()
+        self.assertNotEqual(self.state.created_at, self.state.updated_at)
+
+    def test_to_dict_State(self):
+        """test if dictionary works"""
+        self.assertEqual('to_dict' in dir(self.state), True)
+
 
 if __name__ == "__main__":
     unittest.main()

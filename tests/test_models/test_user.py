@@ -71,6 +71,17 @@ class TestUser(unittest.TestCase):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.user), True)
 
+    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
+                     'Not supported in Data Base mode')
+    def test_save_User(self):
+        """test if the save works"""
+        self.user.save()
+        self.assertNotEqual(self.user.created_at, self.user.updated_at)
+
+    def test_to_dict_User(self):
+        """test if dictionary works"""
+        self.assertEqual('to_dict' in dir(self.user), True)
+
 
 if __name__ == "__main__":
     unittest.main()

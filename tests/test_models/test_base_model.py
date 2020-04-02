@@ -64,6 +64,20 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(base_dict['created_at'], str)
         self.assertIsInstance(base_dict['updated_at'], str)
 
+    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
+                     'Not supported in Data Base mode')
+    def test_save_BaesModel(self):
+        """test if the save works"""
+        self.base.save()
+        self.assertNotEqual(self.base.created_at, self.base.updated_at)
+
+    def test_to_dict_BaseModel(self):
+        """test if dictionary works"""
+        base_dict = self.base.to_dict()
+        self.assertEqual(self.base.__class__.__name__, 'BaseModel')
+        self.assertIsInstance(base_dict['created_at'], str)
+        self.assertIsInstance(base_dict['updated_at'], str)
+
 
 if __name__ == "__main__":
     unittest.main()
