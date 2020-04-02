@@ -14,8 +14,8 @@ from models.review import Review
 from models.engine.file_storage import FileStorage
 
 
-class TestFileStorage(unittest.TestCase):
-    '''this will test the FileStorage'''
+class TestDBStorage(unittest.TestCase):
+    '''this will test the DBStorage'''
 
     @classmethod
     def setUpClass(cls):
@@ -38,14 +38,14 @@ class TestFileStorage(unittest.TestCase):
         except Exception:
             pass
 
-    def test_pep8_FileStorage(self):
+    def test_pep8_DBStorage(self):
         """Tests pep8 style"""
         style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(['models/engine/file_storage.py'])
+        p = style.check_files(['models/engine/db_storage.py'])
         self.assertEqual(p.total_errors, 0, "fix pep8")
 
     def test_all(self):
-        """tests if all works in File Storage"""
+        """tests if all works in DB Storage"""
         storage = FileStorage()
         obj = storage.all()
         self.assertIsNotNone(obj)
@@ -63,7 +63,7 @@ class TestFileStorage(unittest.TestCase):
         key = user.__class__.__name__ + "." + str(user.id)
         self.assertIsNotNone(obj[key])
 
-    def test_reload_filestorage(self):
+    def test_reload_dbtorage(self):
         """
         tests reload
         """
@@ -90,14 +90,6 @@ class TestFileStorage(unittest.TestCase):
             for line in r:
                 self.assertEqual(line, "{}")
         self.assertIs(self.storage.reload(), None)
-
-        def delete(self, obj=None):
-            """Test deleting obj from __objects if it is inside"""
-            if obj:
-                to_delete = obj.__class__.__name__ + '.' + obj.id
-            if to_delete in self.__objects.keys():
-                del self.__objects[to_delete]
-                self.save()
 
 
 if __name__ == "__main__":
