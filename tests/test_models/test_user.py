@@ -62,8 +62,6 @@ class TestUser(unittest.TestCase):
         self.assertEqual(type(self.user.first_name), str)
         self.assertEqual(type(self.user.first_name), str)
 
-    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db',
-                     'Not supported in Data Base mode')
     def test_save_User(self):
         """test if the save works"""
         self.user.save()

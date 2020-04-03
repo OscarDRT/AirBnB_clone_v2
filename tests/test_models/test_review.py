@@ -9,7 +9,6 @@ import pep8
 
 class TestReview(unittest.TestCase):
     """this will test the place class"""
-
     @classmethod
     def setUpClass(cls):
         """set up for test"""
