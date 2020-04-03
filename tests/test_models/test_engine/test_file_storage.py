@@ -13,9 +13,12 @@ from models.place import Place
 from models.review import Review
 from models.engine.file_storage import FileStorage
 
-@unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db", "This test only work in filestorage")
+
+@unittest.skipIf(
+       os.getenv('HBNB_TYPE_STORAGE') == 'db',
+       "This test only work in Filestorage")
 class TestFileStorage(unittest.TestCase):
-    '''this will test the FileStorage'''
+    """this will test the FileStorage"""
 
     @classmethod
     def setUpClass(cls):
@@ -70,34 +73,34 @@ class TestFileStorage(unittest.TestCase):
         self.storage.save()
         Root = os.path.dirname(os.path.abspath("console.py"))
         path = os.path.join(Root, "file.json")
+
         with open(path, 'r') as f:
             lines = f.readlines()
         try:
             os.remove(path)
         except Exception:
             pass
+
         self.storage.save()
+
         with open(path, 'r') as f:
             lines2 = f.readlines()
+
         self.assertEqual(lines, lines2)
+
         try:
             os.remove(path)
         except Exception:
             pass
+
         with open(path, "w") as f:
             f.write("{}")
+
         with open(path, "r") as r:
             for line in r:
                 self.assertEqual(line, "{}")
-        self.assertIs(self.storage.reload(), None)
 
-        def delete(self, obj=None):
-            """Test deleting obj from __objects if it is inside"""
-            if obj:
-                to_delete = obj.__class__.__name__ + '.' + obj.id
-            if to_delete in self.__objects.keys():
-                del self.__objects[to_delete]
-                self.save()
+        self.assertIs(self.storage.reload(), None)
 
 
 if __name__ == "__main__":
