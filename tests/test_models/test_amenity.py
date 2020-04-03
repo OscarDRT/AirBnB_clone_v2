@@ -9,7 +9,6 @@ import pep8
 
 class TestAmenity(unittest.TestCase):
     """this will test the Amenity class"""
-
     @classmethod
     def setUpClass(cls):
         """set up for test"""
@@ -57,6 +56,7 @@ class TestAmenity(unittest.TestCase):
         os.getenv('HBNB_TYPE_STORAGE') == 'db',
         "This test only work in Filestorage")
     def test_save_Amenity(self):
+        """test if the save works"""
         self.amenity.save()
         self.assertNotEqual(self.amenity.created_at, self.amenity.updated_at)
 
