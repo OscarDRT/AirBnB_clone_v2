@@ -9,7 +9,6 @@ import pep8
 
 class TestCity(unittest.TestCase):
     """this will test the city class"""
-
     @classmethod
     def setUpClass(cls):
         """set up for test"""
