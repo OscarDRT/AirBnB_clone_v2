@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#hola
 sudo apt-get -y update
 sudo apt-get -y 
 sudo apt-get -y install nginx
