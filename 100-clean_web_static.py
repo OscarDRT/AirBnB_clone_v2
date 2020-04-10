@@ -15,7 +15,10 @@ def do_clean(number=0):
         number = 1
     number = int(number)
     loc = local("ls -t versions/", capture=True)
-    loc = str(loc).split("\n")
+    loc = str(loc)
+    if loc == "":
+        return
+    loc = loc.split("\n")
     n = len(loc)
     for i in range(number, n):
         local("rm versions/{}".format(loc[i]))
