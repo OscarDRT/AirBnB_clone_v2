@@ -7,13 +7,11 @@ env.hosts = ["35.227.22.206", "34.235.89.220"]
 
 
 def do_clean(number=0):
-    try:
-        stat("versions")
-    except:
-        pass
-    if number == "0" or number == "1":
-        number = 1
     number = int(number)
+    if number < 0:
+        return
+    if number == 0 or number == 1:
+        number = 1
     loc = local("ls -t versions/", capture=True)
     loc = str(loc)
     if loc == "":
