@@ -24,5 +24,4 @@ def do_clean(number=0):
         local("rm versions/{}".format(loc[i]))
         name = loc[i].split(".")
         name = name[0]
-        print(name)
         run("rm -rf /data/web_static/releases/{}/".format(name))
