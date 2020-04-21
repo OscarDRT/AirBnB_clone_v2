@@ -8,8 +8,8 @@
 <body>
     <h1>State</h1>
     <ul>
-        {% for key, value in states_list.items() | sort(attribute='name') %}
-            <li>State: {{value.id}} <B>{{value.name}}</B></li>
+        {% for state in states_list.values() | sort(attribute='name') %}
+            <li>{{state.id}}: <b>{{state.name}}</b></li>
         {% endfor %}
     </ul>
 </body>
