@@ -26,6 +26,6 @@ class State(BaseModel, Base):
             city = models.storage.all(City)
             relation = []
             for key in city.values():
-                if key.states.id == self.id:
+                if key.state_id == self.id:
                     relation.append(key)
             return relation
