@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 from models import storage
-from models.state import State
 from flask import Flask, render_template
 
 app = Flask(__name__)
@@ -14,8 +13,7 @@ def remove(self):
 
 @app.route('/states_list')
 def states():
-    states_list = storage.all(State)
-    #states_list = {'1': 'z', '2': 'a', '3': 'n'}
+    states_list = storage.all("State")
     return render_template('7-states_list.html', states_list=states_list)
 
 
