@@ -15,6 +15,7 @@ def remove(self):
 @app.route('/states_list')
 def states():
     states_list = storage.all(State)
+    #states_list = {'1': 'z', '2': 'a', '3': 'n'}
     return render_template('7-states_list.html', states_list=states_list)
 
 
