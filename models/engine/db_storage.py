@@ -35,17 +35,21 @@ class DBStorage:
         classes = {"City": City, "Place": Place, "Review": Review,
                    "Amenity": Amenity, "State": State, "User": User}
         if cls is not None:
-            see = self.__session.query(classes[cls])
+            if cls in classes:
+                see = self.__session.query(classes[cls])
+            else:
+                see = self.__session.query(cls)
             for instance in see:
                 key = instance.__class__.__name__ + "." + instance.id
                 new_dict[key] = instance
+
         if cls is None:
             for clas in classes.keys():
                 see = self.__session.query(classes[clas])
                 for instance in see:
                     key = instance.__class__.__name__ + "." + instance.id
                     new_dict[key] = instance
-        return new_dict
+        return (new_dict)
 
     def new(self, obj):
         self.__session.add(obj)
@@ -64,3 +68,6 @@ class DBStorage:
         Session = scoped_session(sessionmaker(bind=self.__engine,
                                  expire_on_commit=False))
         self.__session = Session()
+
+    def close(self):
+        self.__session.close()
