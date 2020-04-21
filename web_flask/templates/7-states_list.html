@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>HBNH</title>
 </head>
 <body>
     <h1>State</h1>
     <ul>
         {% for state in states_list.values() | sort(attribute='name') %}
-            <li>{{state['id']}}: <b>{{state['name']}}</b></li>          
+            <li>{{state.id}}: <b>{{state.name}}</b></li>          
         {% endfor %}
     </ul>
 </body>
